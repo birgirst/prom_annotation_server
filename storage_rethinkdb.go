@@ -30,9 +30,9 @@ func NewRethinkDBStorage(conn string) (*RethinkDBStorage, error) {
 	if err != nil {
 		return nil, err
 	}
-	r.DbCreate(db).Run(s)
-	r.Db(db).TableCreate("annotations").Run(s)
-	r.Db(db).Table("annotations").IndexCreate("created_at").Run(s)
+	r.DBCreate(db).Run(s)
+	r.DB(db).TableCreate("annotations").Run(s)
+	r.DB(db).Table("annotations").IndexCreate("created_at").Run(s)
 
 	s.Use(db)
 
@@ -130,7 +130,7 @@ func (s *RethinkDBStorage) Close() {
 }
 
 func (s *RethinkDBStorage) Cleanup() {
-	r.DbDrop(s.dbName).RunWrite(s.session)
+	r.DBDrop(s.dbName).RunWrite(s.session)
 	s.Close()
 }
 
